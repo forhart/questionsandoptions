@@ -15,9 +15,6 @@ class Question(models.Model):
     def __unicode__(self):
         return self.title
 
-class QuestionAdmin(admin.ModelAdmin):
-    list_display = ("title","asked_date")
-
 class Option(models.Model):
     text  = models.CharField(max_length=300)
     question = models.ForeignKey(Question)
@@ -27,7 +24,19 @@ class Option(models.Model):
 
 class OptionAdmin(admin.ModelAdmin):
     list_display = ("text","question")
+    search_fields = ("text",)
+
+class OptionInline(admin.StackedInline):
+    model = Option
+    extra = 3
+
+class QuestionAdmin(admin.ModelAdmin):
+    list_display = ("title","asked_date")
+    search_fields = ("title",)
+    list_filter = ("asked_date",)
+    ordering = ("-asked_date",)
+    inlines = [OptionInline]
 
 
 admin.site.register(Question,QuestionAdmin)
-admin.site.register(Option,OptionAdmin)
+#admin.site.register(Option,OptionAdmin)
