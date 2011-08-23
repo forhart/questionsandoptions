@@ -15,6 +15,9 @@ class Question(models.Model):
     def __unicode__(self):
         return self.title
 
+class QuestionAdmin(admin.ModelAdmin):
+    list_display = ("title","asked_date")
+
 class Option(models.Model):
     text  = models.CharField(max_length=300)
     question = models.ForeignKey(Question)
@@ -22,5 +25,9 @@ class Option(models.Model):
     def __unicode__(self):
         return self.text
 
-admin.site.register(Question)
-admin.site.register(Option)
+class OptionAdmin(admin.ModelAdmin):
+    list_display = ("text","question")
+
+
+admin.site.register(Question,QuestionAdmin)
+admin.site.register(Option,OptionAdmin)
