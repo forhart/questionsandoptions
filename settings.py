@@ -1,4 +1,11 @@
 # Django settings for questionsandoptions project.
+import os
+import django
+
+#calculated paths for django and the site
+DJANGO_ROOT = os.path.dirname(os.path.realpath(django.__file__))
+SITE_ROOT   = os.path.dirname(os.path.realpath(__file__))
+
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -12,7 +19,8 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/home/windeor/code/questionsandoptions/mydata.db',                      # Or path to database file if using sqlite3.
+        'NAME': os.path.join(SITE_ROOT)+'/mydata.db',                      # Or path to database file if using sqlite3.
+        #'NAME':'/home/sagar/mydata.db',
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
